@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f7f3" />
+  <title>오늘의 기록</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">✦</span><span>memento</span></div>
+      <nav class="main-nav" aria-label="주 메뉴">
+        <button class="nav-item active" data-view="today"><span>◷</span> 오늘의 기록</button>
+        <button class="nav-item" data-view="calendar"><span>▣</span> 날짜별 보기</button>
+        <button class="nav-item" data-view="todos"><span>✓</span> 할 일 모아보기</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-note"><span class="sparkle">✦</span><p>생각을 남겨두면<br><strong>내일의 나</strong>가 고마워요.</p></div>
+        <button class="settings"><span>⚙</span> 설정</button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div><p class="eyebrow">MONDAY, JUNE 17, 2024</p><h1 id="page-title">오늘의 기록</h1></div>
+        <div class="top-actions"><button class="icon-button" id="search-toggle" aria-label="검색">⌕</button><button class="avatar">M</button></div>
+      </header>
+
+      <section class="quick-capture" aria-label="새 기록 작성">
+        <div class="capture-icon">✎</div>
+        <textarea id="entry-input" rows="1" placeholder="지금 떠오르는 생각을 자유롭게 적어보세요..."></textarea>
+        <div class="capture-footer"><span class="capture-hint">Enter로 빠르게 기록하기</span><div class="capture-controls"><select id="category-select" aria-label="카테고리"><option value="auto">자동 분류</option><option value="work">업무</option><option value="journal">일기</option><option value="emotion">감정</option><option value="todo">할 일</option><option value="idea">아이디어</option><option value="other">기타</option></select><button class="add-button" id="add-entry">기록 남기기 <span>↗</span></button></div></div>
+      </section>
+
+      <section id="search-bar" class="search-bar hidden"><span>⌕</span><input id="search-input" placeholder="기록과 할 일을 검색해보세요" /><button id="clear-search">×</button></section>
+      <section id="app-view"></section>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>

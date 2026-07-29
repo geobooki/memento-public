@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+:root { --paper: #fff; --canvas: #f8f7f3; --ink: #252525; --muted: #92908a; --line: #e9e7e1; --coral: #ef754f; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--canvas); color: var(--ink); font-family: Arial, "Noto Sans KR", sans-serif; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+::selection { background: #f7c7b8; }
