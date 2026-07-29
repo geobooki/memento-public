@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # memento — 하루 기록 관리
 
 Next.js App Router와 Tailwind CSS로 만든 반응형 기록 관리 앱입니다.
@@ -60,3 +61,6 @@ Vercel은 `vercel.json`의 Next.js 설정을 자동으로 인식합니다. 배�
 ```
 
 외부 서버 없이 동작하는 프로토타입이므로 같은 브라우저 안에서 기록이 유지됩니다.
+=======
+# memento-public
+>>>>>>> 9b8d536e1d3b8bd81c45a11dec7c39aef7057fee
