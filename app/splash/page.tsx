@@ -1,0 +1,3 @@
+"use client";
+import { useEffect } from "react"; import { useRouter } from "next/navigation"; import Image from "next/image";
+export default function SplashPage() { const router = useRouter(); useEffect(() => { const timer = setTimeout(() => router.replace("/"), 1800); return () => clearTimeout(timer); }, [router]); return <main className="grid min-h-screen place-items-center overflow-hidden bg-canvas"><div className="splash-orbit relative grid h-52 w-52 place-items-center"><Image src="/splash-orbit.svg" alt="memento 장식 이미지" fill priority /><div className="relative text-center"><span className="block text-3xl font-bold tracking-tight">memento</span><span className="mt-2 block text-xs text-muted">생각을 남겨두는 곳</span></div></div></main>; }
