@@ -6,6 +6,7 @@ alter table public.entries add column if not exists priority text not null defau
 alter table public.entries add column if not exists due_date date;
 alter table public.entries add column if not exists due_time time;
 alter table public.entries add column if not exists reminder_at timestamptz;
+alter table public.entries add column if not exists reminder_sent_at timestamptz;
 create index if not exists entries_user_date_idx on public.entries(user_id, entry_date, entry_time);
 alter table public.entries enable row level security;
 drop policy if exists "Users can read their own entries" on public.entries;
@@ -72,3 +73,18 @@ drop policy if exists "Users can upload their medication documents" on storage.o
 create policy "Users can upload their medication documents" on storage.objects for insert with check (bucket_id = 'medication-documents' and auth.uid()::text = (storage.foldername(name))[1]);
 drop policy if exists "Users can read their medication documents" on storage.objects;
 create policy "Users can read their medication documents" on storage.objects for select using (bucket_id = 'medication-documents' and auth.uid()::text = (storage.foldername(name))[1]);
+
+create table if not exists public.push_subscriptions (
+  id uuid primary key default gen_random_uuid(), user_id uuid not null references auth.users(id) on delete cascade,
+  endpoint text not null unique, p256dh text not null, auth text not null, expiration_time bigint,
+  created_at timestamptz not null default now(), last_used_at timestamptz
+);
+alter table public.push_subscriptions enable row level security;
+drop policy if exists "Users can read their own push subscriptions" on public.push_subscriptions;
+create policy "Users can read their own push subscriptions" on public.push_subscriptions for select using (auth.uid() = user_id);
+drop policy if exists "Users can create their own push subscriptions" on public.push_subscriptions;
+create policy "Users can create their own push subscriptions" on public.push_subscriptions for insert with check (auth.uid() = user_id);
+drop policy if exists "Users can update their own push subscriptions" on public.push_subscriptions;
+create policy "Users can update their own push subscriptions" on public.push_subscriptions for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+drop policy if exists "Users can delete their own push subscriptions" on public.push_subscriptions;
+create policy "Users can delete their own push subscriptions" on public.push_subscriptions for delete using (auth.uid() = user_id);
