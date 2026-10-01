@@ -2,6 +2,10 @@ create table if not exists public.entries (
   id uuid primary key default gen_random_uuid(), user_id uuid not null references auth.users(id) on delete cascade,
   entry_date date not null, entry_time time not null, text text not null, category text not null default 'other', done boolean not null default false, created_at timestamptz not null default now()
 );
+alter table public.entries add column if not exists priority text not null default 'normal';
+alter table public.entries add column if not exists due_date date;
+alter table public.entries add column if not exists due_time time;
+alter table public.entries add column if not exists reminder_at timestamptz;
 create index if not exists entries_user_date_idx on public.entries(user_id, entry_date, entry_time);
 alter table public.entries enable row level security;
 drop policy if exists "Users can read their own entries" on public.entries;
