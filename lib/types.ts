@@ -4,4 +4,6 @@ export type Entry = { id: string; date: string; time: string; text: string; cate
 export type EntryRevision = { id: string; previousText: string; nextText: string; changedAt: string };
 export type TodoPriority = "low" | "normal" | "high" | "urgent";
 export type TodoDetails = { priority: TodoPriority; dueDate: string | null; dueTime: string | null; reminderAt: string | null };
+export type Medication = { id: string; name: string; ingredient: string | null; doseAmount: string; doseUnit: string; schedule: string; instructions: string | null; active: boolean; createdAt: string; documentPath?: string | null };
+export type MedicationLog = { id: string; medicationId: string; takenAt: string; amount: string; unit: string; timing: string; note: string | null };
 export type CategoryOption = { key: Category; label: string; color: string; dot: string };
