@@ -1,6 +1,6 @@
 export type Category = string;
 export type View = "today" | "calendar" | "todos" | "settings";
-export type Entry = { id: string; date: string; time: string; text: string; category: Category; done: boolean; priority?: TodoPriority; dueDate?: string | null; dueTime?: string | null; reminderAt?: string | null; history?: EntryRevision[] };
+export type Entry = { id: string; date: string; time: string; text: string; category: Category; done: boolean; priority?: TodoPriority; dueDate?: string | null; dueTime?: string | null; reminderAt?: string | null; reminderSentAt?: string | null; history?: EntryRevision[] };
 export type EntryRevision = { id: string; previousText: string; nextText: string; changedAt: string };
 export type TodoPriority = "low" | "normal" | "high" | "urgent";
 export type TodoDetails = { priority: TodoPriority; dueDate: string | null; dueTime: string | null; reminderAt: string | null };
