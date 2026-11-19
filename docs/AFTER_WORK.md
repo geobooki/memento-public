@@ -16,3 +16,13 @@
 - 정확한 시각·5분 뒤 알림을 지원하려면 Pro의 분 단위 cron 또는 외부 스케줄러를 설정합니다. 외부 호출은 `GET /api/cron/reminders`, `Authorization: Bearer <CRON_SECRET>`를 사용합니다.
 - 서버 변수: `SUPABASE_SERVICE_ROLE_KEY`, `CRON_SECRET`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`. 클라이언트 변수: `NEXT_PUBLIC_VAPID_PUBLIC_KEY`. 공개키 두 변수에는 같은 값을 설정합니다.
 - 로그인한 브라우저에서 알림을 허용한 뒤 테스트용 할 일을 만들고 실제 수신을 확인합니다. 키 값은 문서나 GitHub에 남기지 않습니다.
+
+## 4. 메모 알림 컬럼 보완 (2026-11-20 확인)
+- 연결된 DB에서 `entries.reminder_sent_at` 컬럼 누락을 읽기 전용 조회로 확인했습니다. 앱은 이 컬럼이 없어도 기록 조회·저장을 지원하도록 수정했습니다.
+- Supabase SQL Editor에서 다음 SQL을 적용하면 알림 발송 여부까지 저장할 수 있습니다. 기존 메모는 삭제하지 않습니다.
+
+```sql
+alter table public.entries add column if not exists reminder_sent_at timestamptz;
+notify pgrst, 'reload schema';
+```
+- 적용 후 메모 추가·새로고침·기존 날짜 조회를 확인하고 푸시 알림도 점검합니다. 이 SQL은 자동 실행하지 않았습니다.
